@@ -1,15 +1,17 @@
 #ifndef DECK_H
 #define DECK_H
 
-#include <random>
 #include <iterator>
+#include <random>   // std::default_random_engine
+#include <algorithm>// std::shuffle
+#include <chrono>   // std::chrono::system_clock
+
 #include "Cards.h"
 
-using namespace std;
+//using namespace std;
 
 // implement a stack using std::vector
 // we can shuffle using std::shuffle
-
 
 template <typename T>
 class Deck {
@@ -42,6 +44,11 @@ class Deck {
             
         // push a card onto the top of the deck
         void push(const T pushValue){ deck.push_back(pushValue); }
+
+        void shuffle(){
+            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+            std::shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
+        }
         
         // DEAL - return topCard and increment topCard iterator to the next card
         T* deal() { 
