@@ -82,10 +82,11 @@ std::vector<int> Guess::validateInput(){
         result[0] = getValFromInput(validatedInput);
     } 
     else if(validatedInput[0] == '1' && validatedInput[1] == '0'){ result[0] = 10; } 
-    else if(validatedInput[0] == 'A'){ result[0] = 1; }
-    else if(validatedInput[0] == 'J'){ result[0] = 11; }
-    else if(validatedInput[0] == 'Q'){ result[0] = 12; }
-    else if(validatedInput[0] == 'K'){ result[0] = 13; }
+    else if(validatedInput[0] == '1' && validatedInput[1] != '0'){ result[0] = 1; }
+    else if(validatedInput[0] == 'A' || validatedInput[0] == 'a'){ result[0] = 1; }
+    else if(validatedInput[0] == 'J' || validatedInput[0] == 'j'){ result[0] = 11; }
+    else if(validatedInput[0] == 'Q' || validatedInput[0] == 'q'){ result[0] = 12; }
+    else if(validatedInput[0] == 'K' || validatedInput[0] == 'k'){ result[0] = 13; }
     else { invalidInput(); return result; }
 
     // test if second or third character is a suit: h,d,s,c
@@ -93,10 +94,10 @@ std::vector<int> Guess::validateInput(){
     if(validatedInput[1] == '0'){ i = 2; } // if it's a 10, we want to test the third character instead
     else { i = 1; }
 
-    if      (validatedInput[i] == 'h'){ result[1] = 1; }
-    else if (validatedInput[i] == 'd'){ result[1] = 2; }
-    else if (validatedInput[i] == 's'){ result[1] = 3; }
-    else if (validatedInput[i] == 'c'){ result[1] = 4; }
+    if      (validatedInput[i] == 'h' || validatedInput[i] == 'H'){ result[1] = 1; }
+    else if (validatedInput[i] == 'd' || validatedInput[i] == 'D'){ result[1] = 2; }
+    else if (validatedInput[i] == 's' || validatedInput[i] == 'S'){ result[1] = 3; }
+    else if (validatedInput[i] == 'c' || validatedInput[i] == 'C'){ result[1] = 4; }
     else { invalidInput(); return result; }
 
     return result; // if we've missed any of the above conditions, return <0,0>
