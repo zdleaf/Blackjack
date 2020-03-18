@@ -48,6 +48,7 @@ class Deck {
         void shuffle(){
             unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
             std::shuffle(deck.begin(), deck.end(), std::default_random_engine(seed));
+            topCard = deck.begin(); // set the iterator back to the beginning
         }
         
         // DEAL - return topCard and increment topCard iterator to the next card
