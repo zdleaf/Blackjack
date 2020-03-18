@@ -17,8 +17,14 @@ class Card{
         Card(int suit,int value);
         string toStr();
 
-        string returnSuit(int suit); // abstract/static? can be called anywhere
-        string returnValue(int value);
+        int getSuit();
+        int getValue();
+        string getSuitStr();
+        string getValueStr();
+
+        string lookupSuit(int suit); // abstract/static? can be called anywhere
+        string lookupValue(int value);
+        static int rlookupValue(string cVal);
 
 };
 

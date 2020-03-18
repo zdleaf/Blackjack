@@ -4,6 +4,8 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include <tuple>
+
 #include "Deck.h"
 #include "Cards.h"
 
@@ -12,7 +14,6 @@ using namespace std;
 class Guess{
     private:
         int numberOfGuesses;
-        int randomNumber;
         Deck<Card> *deck;
         Card *card;
 
@@ -21,16 +22,17 @@ class Guess{
         ~Guess();
         void generate();
 
-        int getRandomNumber();
+        Card* getCard();
         int getNumberOfGuesses();
 
         void newGame();
         void gameLoop();
 
-        int validateInput();
+        std::vector<int> validateInput();
         void invalidInput();
+        int getValFromInput(string &input, int charsToProcess = 1) const;
         bool guessLoop();
-        bool compareGuess(string guess) const;
+        bool compareGuess(std::vector<int> guessVec);
         void playAgain();
 };
 

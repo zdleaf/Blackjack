@@ -5,8 +5,7 @@ Guess::Guess(){
 }
 
 Guess::~Guess(){
-    delete deck;
-    delete card;
+    delete deck; // delete our deck of cards
 }
 
 void Guess::newGame(){
@@ -16,14 +15,15 @@ void Guess::newGame(){
     gameLoop(); // start the game loop
 }
 
-int Guess::getRandomNumber(){ return randomNumber; }
+Card* Guess::getCard(){ return card; }
 int Guess::getNumberOfGuesses(){ return numberOfGuesses; }
 
 void Guess::gameLoop(){
     bool gameWon = false;
     cout << "-----------------------------------" << endl;
     cout << "Welcome to the Card Guessing Game!" << endl;
-    //cout << getRandomNumber() << endl;
+    cout << "Aces are low" << endl;
+    cout << getCard()->toStr() << endl;
     cout << "Type \"quit\" to exit at any time" << endl;
     cout << "-----------------------------------" << endl;
     cout << "Guess a card e.g. 3h, Qd" << endl;
@@ -34,38 +34,72 @@ void Guess::gameLoop(){
 }
 
 bool Guess::guessLoop(){
+    vector<int> guessVec;
+    int value; int suit;
     string input = "";
     bool validInput = false;
-    cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl;
     while(!validInput){
-        input = validateInput();
-        if(input != 0) { validInput = true; } // validateInput() will always return 0 unless we get a valid input
+        cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl;
+        guessVec = validateInput();
+        cout << "guessVec[0]: " << guessVec[0] << " guessVec[1]: " << guessVec[1] << endl;
+        if(guessVec[0] != 0 && guessVec[1] != 0) { validInput = true; } // validateInput() will always return "##" unless we get a valid input
     }
-    return compareGuess(input); // compare our guess and return true or false
+    return compareGuess(guessVec); // compare our guess and return true or false
 }
 
-bool Guess::compareGuess(string guess) const{
-    if(guess  getRandomNumber()){ cout << "Too low! Try again." << endl; numberOfGuesses++; return false; }
-    if(guess > getRandomNumber()){ cout << "Too high! Try again." << endl; numberOfGuesses++; return false; }
-    if(guess == card->toStr()){ cout << "Correct!" << endl << "You guessed in " << getNumberOfGuesses() << " attempts." << endl; return true; }
+bool Guess::compareGuess(vector<int> guessVec){
+    if      (guessVec[0] > card->getValue() && guessVec[1] != card->getSuit()){ cout << "Value of card too high and suit is wrong" << endl; numberOfGuesses++; return false; }
+    else if (guessVec[0] < card->getValue() && guessVec[1] != card->getSuit()){ cout << "Value of card too low and suit is wrong" << endl; numberOfGuesses++; return false; }
+    else if (guessVec[0] > card->getValue() && guessVec[1] == card->getSuit()){ cout << "Value of card too high, however the suit is correct" << endl; numberOfGuesses++; return false; }
+    else if (guessVec[0] < card->getValue() && guessVec[1] == card->getSuit()){ cout << "Value of card too low, however the suit is correct" << endl; numberOfGuesses++; return false; }
+    if(guessVec[0] == card->getValue() && guessVec[1] == card->getSuit()){ cout << "Correct!" << endl << "You guessed in " << getNumberOfGuesses() << " attempts." << endl; return true; }
     return false; // default condition should never return
 }
 
-int Guess::validateInput(){
-    int number;
+int Guess::getValFromInput(string &input, int charsToProcess/* = 1 */) const{
+    int value;
+    stringstream ss(input.substr(0,charsToProcess));
+    ss >> value;
+    if (ss.fail()) { return 0; } // if we input a string for example
+    return value;
+}
+
+std::vector<int> Guess::validateInput(){
+    vector<int> result = {0,0}; // default 0,0 - signifies error with input
     string input;
+    string validatedInput;
 
     cin >> input;
     cin.ignore();
-
     if (input == "quit"){ exit(0); }
-
     stringstream ss(input); // use stringstream to validate our input
-    ss >> number;
-    if (ss.fail()) { invalidInput(); return 0; } // if we input a string for example
-    else if (number < 1000 || number > 9999) { invalidInput(); return 0; }
-    else if (number >= 1000 && number <= 9999){ return number; }
-    return 0; // if we've missed any of the above conditions, return 0
+    ss >> validatedInput;
+    if (ss.fail()) { invalidInput(); return result; } // if to string fails for any reason
+    if (validatedInput.length() > 3){ invalidInput(); return result; } // maximum length should be 3, e.g. 10d
+
+    // test first and/or second character are 1-10 e.g. 10d, 4d
+    if(getValFromInput(validatedInput) < 10 && getValFromInput(validatedInput) > 1){ // if first character is 1-9
+        result[0] = getValFromInput(validatedInput);
+    } 
+    else if(validatedInput[0] == '1' && validatedInput[1] == '0'){ result[0] = 10; } 
+    else if(validatedInput[0] == 'A'){ result[0] = 1; }
+    else if(validatedInput[0] == 'J'){ result[0] = 11; }
+    else if(validatedInput[0] == 'Q'){ result[0] = 12; }
+    else if(validatedInput[0] == 'K'){ result[0] = 13; }
+    else { invalidInput(); return result; }
+
+    // test if second or third character is a suit: h,d,s,c
+    int i;
+    if(validatedInput[1] == '0'){ i = 2; } // if it's a 10, we want to test the third character instead
+    else { i = 1; }
+
+    if      (validatedInput[i] == 'h'){ result[1] = 1; }
+    else if (validatedInput[i] == 'd'){ result[1] = 2; }
+    else if (validatedInput[i] == 's'){ result[1] = 3; }
+    else if (validatedInput[i] == 'c'){ result[1] = 4; }
+    else { invalidInput(); return result; }
+
+    return result; // if we've missed any of the above conditions, return <0,0>
 }
 
 void Guess::playAgain(){
@@ -79,6 +113,6 @@ void Guess::playAgain(){
 }
 
 void Guess::invalidInput(){ 
-    cout << "Incorrect input - please enter a number between 1000 and 9999" << endl; 
-    cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl; 
+    cout << "Invalid input - please enter a card in the following format: 3h, Qd etc" << endl; 
+    // cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl; 
 }

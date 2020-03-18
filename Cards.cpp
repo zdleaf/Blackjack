@@ -7,10 +7,16 @@ Card::Card(int suit, int value){
 }
 
 string Card::toStr(){
-    return returnValue(value) + returnSuit(suit);
+    return lookupValue(value) + lookupSuit(suit);
 }
 
-string Card::returnSuit(int cSuit){
+int Card::getSuit(){ return suit; }
+int Card::getValue(){ return value; }
+string Card::getSuitStr(){ return lookupSuit(getSuit()); }
+string Card::getValueStr(){ return lookupValue(getValue()); }
+
+
+string Card::lookupSuit(int cSuit){
     switch(cSuit){
         case 1: return "h";
         case 2: return "d";
@@ -20,7 +26,7 @@ string Card::returnSuit(int cSuit){
     }
 }
 
-string Card::returnValue(int cVal){
+string Card::lookupValue(int cVal){
     switch(cVal){
         case 1: return "A";
         case 2: return "2";
@@ -37,4 +43,22 @@ string Card::returnValue(int cVal){
         case 13: return "K";
         default: return "invalid card value";
     }
+}
+
+int Card::rlookupValue(string cVal){
+    if(cVal == "A"){ return 1; }
+    else if(cVal == "2"){ return 2; }
+    else if(cVal == "3"){ return 3; }
+    else if(cVal == "4"){ return 4; }
+    else if(cVal == "5"){ return 5; }
+    else if(cVal == "6"){ return 6; }
+    else if(cVal == "7"){ return 7; }
+    else if(cVal == "8"){ return 8; }
+    else if(cVal == "9"){ return 9; }
+    else if(cVal == "10"){ return 10; }
+    else if(cVal == "J"){ return 11; }
+    else if(cVal == "Q"){ return 12; }
+    else if(cVal == "K"){ return 13; }
+    else return 0;
+
 }
