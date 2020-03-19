@@ -20,14 +20,17 @@ int Guess::getNumberOfGuesses(){ return numberOfGuesses; }
 
 void Guess::gameLoop(){
     bool gameWon = false;
-    cout << "-----------------------------------" << endl;
-    cout << "Welcome to the Card Guessing Game!" << endl;
-    cout << "Aces are low" << endl;
-    cout << getCard()->toStr() << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "               Welcome to the Card Guessing Game!" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "Value ranks:   A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K" << endl;
+    cout << "Suits:         d = diamonds, h = hearts, c = clubs, s = spades" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    // cout << getCard()->toStr() << endl; // debug: display card for debugging purposes
     cout << "Type \"quit\" to exit at any time" << endl;
-    cout << "-----------------------------------" << endl;
-    cout << "Guess a card e.g. 3h, Qd" << endl;
-    cout << "-----------------------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "Guess a card e.g. 3h, Qd, Ac, 10s" << endl;
+    cout << "---------------------------------------------------------------" << endl;
     
     while(!gameWon){ gameWon = guessLoop(); } // run guessLoop() until the game is won
     if(gameWon){ playAgain(); } // if we've won, display play again dialog
@@ -41,8 +44,8 @@ bool Guess::guessLoop(){
     while(!validInput){
         cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl;
         guessVec = validateInput();
-        cout << "guessVec[0]: " << guessVec[0] << " guessVec[1]: " << guessVec[1] << endl;
-        if(guessVec[0] != 0 && guessVec[1] != 0) { validInput = true; } // validateInput() will always return "##" unless we get a valid input
+        // cout << "guessVec[0]: " << guessVec[0] << " guessVec[1]: " << guessVec[1] << endl; // debug: display suit/value vector
+        if(guessVec[0] != 0 && guessVec[1] != 0) { validInput = true; } // validateInput() will always return "0" unless we get a valid input for suit/value
     }
     return compareGuess(guessVec); // compare our guess and return true or false
 }
@@ -115,5 +118,4 @@ void Guess::playAgain(){
 
 void Guess::invalidInput(){ 
     cout << "Invalid input - please enter a card in the following format: 3h, Qd etc" << endl; 
-    // cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl; 
 }
