@@ -45,7 +45,7 @@ string Card::lookupValue(int cVal){
     }
 }
 
-int Card::rlookupValue(string cVal){
+int Card::rlookupValue(string cVal){ // reverse lookup
     if(cVal == "A"){ return 1; }
     else if(cVal == "2"){ return 2; }
     else if(cVal == "3"){ return 3; }

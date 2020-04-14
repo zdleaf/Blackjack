@@ -1,4 +1,4 @@
-#include "../include/Guess.h"
+#include "../include/GuessingGame/Guess.h"
 
 Guess::Guess(){
     deck = new Deck<Card>(); // create a deck of cards
@@ -26,7 +26,7 @@ void Guess::gameLoop(){
     cout << "Value ranks:   A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K" << endl;
     cout << "Suits:         d = diamonds, h = hearts, c = clubs, s = spades" << endl;
     cout << "---------------------------------------------------------------" << endl;
-    // cout << getCard()->toStr() << endl; // debug: display card for debugging purposes
+    cout << getCard()->toStr() << endl; // debug: display card for debugging purposes
     cout << "Type \"quit\" to exit at any time" << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << "Guess a card e.g. 3h, Qd, Ac, 10s" << endl;
@@ -53,6 +53,7 @@ bool Guess::guessLoop(){
 bool Guess::compareGuess(vector<int> guessVec){
     if      (guessVec[0] > card->getValue() && guessVec[1] != card->getSuit()){ cout << "Value of card too high and suit is wrong" << endl; numberOfGuesses++; return false; }
     else if (guessVec[0] < card->getValue() && guessVec[1] != card->getSuit()){ cout << "Value of card too low and suit is wrong" << endl; numberOfGuesses++; return false; }
+    else if (guessVec[0] == card->getValue() && guessVec[1] != card->getSuit()){ cout << "Value of card is correct, however the suit is wrong" << endl; numberOfGuesses++; return false; }
     else if (guessVec[0] > card->getValue() && guessVec[1] == card->getSuit()){ cout << "Value of card too high, however the suit is correct" << endl; numberOfGuesses++; return false; }
     else if (guessVec[0] < card->getValue() && guessVec[1] == card->getSuit()){ cout << "Value of card too low, however the suit is correct" << endl; numberOfGuesses++; return false; }
     if(guessVec[0] == card->getValue() && guessVec[1] == card->getSuit()){ cout << "Correct!" << endl << "You guessed in " << getNumberOfGuesses() << " attempts." << endl; return true; }

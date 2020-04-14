@@ -26,7 +26,7 @@ void Guess::gameLoop(){
     cout << "Value ranks:   A, 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K" << endl;
     cout << "Suits:         d = diamonds, h = hearts, c = clubs, s = spades" << endl;
     cout << "---------------------------------------------------------------" << endl;
-    cout << getCard()->toStr() << endl; // debug: display card for debugging purposes
+    // cout << getCard()->toStr() << endl; // debug: display card for debugging purposes
     cout << "Type \"quit\" to exit at any time" << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << "Guess a card e.g. 3h, Qd, Ac, 10s" << endl;

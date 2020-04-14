@@ -1,7 +1,6 @@
-#include "../include/Cards.h"
-#include "../include/Deck.h"
 #include "../include/GuessingGame/Guess.h"
 
+// compile command only works in root directory!
 // g++ src/*.cpp -I. -o main -std=c++17
 
 int main(){

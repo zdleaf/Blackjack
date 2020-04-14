@@ -7,6 +7,23 @@
 
 class Player{
     private:
+        Card *card1;
+        Card *card2;
+        string name;
+
+    public:
+        string getName();
+};
+
+class Human: public Player{
+    private:
+
+    public:
+
+};
+
+class CPU: public Player{
+    private:
 
     public:
 };
