@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-#include "Blackjack.h"
+#include "../Deck.h"
+#include "../Cards.h"
 
 class Player{
     private:
@@ -12,17 +13,24 @@ class Player{
         string name;
 
     public:
+        Player();
         string getName();
+
+        void setCard1(Card *card);
+        void setCard2(Card *card);
+        Card* getCard1();
+        Card* getCard2();
 };
 
-class Human: public Player{
+class Human: public Player {
     private:
 
     public:
+        Human();
 
 };
 
-class CPU: public Player{
+class CPU: public Player {
     private:
 
     public:

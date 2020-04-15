@@ -12,6 +12,7 @@
 
 // implement a stack using std::vector
 // we can shuffle using std::shuffle
+// use unique ptrs for the cards
 
 template <typename T>
 class Deck {

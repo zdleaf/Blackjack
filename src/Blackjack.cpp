@@ -12,6 +12,13 @@ Blackjack::~Blackjack(){
 
 void Blackjack::newGame(){
     deck->shuffle(); // shuffle the deck
-
     // deal two cards to each player in turn - for each player in vector
+    for( Human p: playerVec){ p.setCard1(deck->deal()); } // deal first card
+    for( Human p: playerVec){ p.setCard1(deck->deal()); } // deal second card
+
+    for( Human p: playerVec){
+        cout << p.getCard1()->toStr() << "," << p.getCard2()->toStr() << endl;
+    }
+
+    
 }
