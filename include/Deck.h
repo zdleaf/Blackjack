@@ -11,7 +11,7 @@
 
 //using namespace std;
 
-// template class to enable having decks of different Card types in future, e.g. Uno cards
+// template class to enable having decks of different Card types
 
 // implement a stack using std::vector
 // we can shuffle using std::shuffle

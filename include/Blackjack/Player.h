@@ -21,6 +21,8 @@ class Player{
         shared_ptr<Card> getCard1();
         shared_ptr<Card> getCard2();
 
+        virtual void test() = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
+
 };
 
 class Human: public Player {
@@ -28,6 +30,7 @@ class Human: public Player {
 
     public:
         Human();
+        void test();
 
 };
 
@@ -35,6 +38,8 @@ class CPU: public Player {
     private:
 
     public:
+        CPU();
+        void test();
 };
 
 #endif

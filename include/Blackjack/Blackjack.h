@@ -15,9 +15,8 @@ class Blackjack{
         // each player has 2 pointers to cards dealt from this deck
 
         Human p1;
-        Human p2;
-        std::vector<Human*> playerVec = { &p1, &p2 };
-
+        CPU p2;
+        std::vector<Player*> playerVec = { (Player*)&p1, (Player*)&p2 }; // upcasting
 
     public:
         Blackjack();

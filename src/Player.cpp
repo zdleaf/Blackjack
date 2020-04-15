@@ -11,6 +11,14 @@ void Player::setCard2(shared_ptr<Card> card){ card2 = card; }
 shared_ptr<Card> Player::getCard1(){ return card1; }
 shared_ptr<Card> Player::getCard2(){ return card2; }
 
-Human::Human():Player(){
-    // constructor
+Human::Human():Player(){ // constructor
+    
 }
+
+void Human::test(){ cout << "human test called" << endl; }
+
+CPU::CPU():Player(){ // constructor
+
+}
+
+void CPU::test(){ cout << "CPU test called" << endl; }  
