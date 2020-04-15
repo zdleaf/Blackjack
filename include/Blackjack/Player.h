@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <iostream>
+#include <string>
 
 #include "../Deck.h"
 #include "../Cards.h"
@@ -10,11 +11,12 @@ class Player{
     private:
         shared_ptr<Card> card1;
         shared_ptr<Card> card2;
-        string name = "zach";
+        string name;
 
     public:
         Player();
         string getName();
+        void setName(string name);
 
         void setCard1(shared_ptr<Card> card);
         void setCard2(shared_ptr<Card> card);

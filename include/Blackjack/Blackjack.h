@@ -10,17 +10,15 @@
 class Blackjack{
     private:
         Deck<Card> *deck; // deck is initialised in constructor
-
-        // store players in vector<Player>? or vector<CPU> vector<Human> - need to handle adding players and adding a hand for them
-        // each player has 2 pointers to cards dealt from this deck
-
-        std::vector<Player*> playerVec; //
+        std::vector<Player*> playerVec; // vector of the players in the current game
 
     public:
         Blackjack();
         ~Blackjack();
-        void initialisePlayers();
+        void addHumanPlayer();
+        void addCPUPlayer();
         void newGame();
+
         
 };
 

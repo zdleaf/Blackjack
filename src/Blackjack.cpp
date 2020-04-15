@@ -7,18 +7,25 @@ Blackjack::Blackjack(){
 
 // de-constructor
 Blackjack::~Blackjack(){
+    cout << "Deconstructor called" << endl;
     delete deck; // delete our deck of cards
+    for( Player* p: playerVec){ delete p; }; // delete all our players
 }
 
-void Blackjack::initialisePlayers(){
-    Human* p1 = new Human();
-    CPU* p2 = new CPU();
-    playerVec.push_back((Player*)p1); // upcasting
-    playerVec.push_back((Player*)p2);
+void Blackjack::addHumanPlayer(){
+    Human* player = new Human();
+    playerVec.push_back((Player*)player); // upcasting
+}
+
+void Blackjack::addCPUPlayer(){
+    CPU* player = new CPU();
+    playerVec.push_back((Player*)player); // upcasting
 }
 
 void Blackjack::newGame(){
-    initialisePlayers(); // setup the players
+    // setup the players
+    addCPUPlayer(); 
+    addHumanPlayer();
     deck->shuffle(); // shuffle the deck
 
     // deal two cards to each player in turn - for each player in vector
