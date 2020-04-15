@@ -14,14 +14,14 @@ class Blackjack{
         // store players in vector<Player>? or vector<CPU> vector<Human> - need to handle adding players and adding a hand for them
         // each player has 2 pointers to cards dealt from this deck
 
-        Human p1;
-        CPU p2;
-        std::vector<Player*> playerVec = { (Player*)&p1, (Player*)&p2 }; // upcasting
+        std::vector<Player*> playerVec; //
 
     public:
         Blackjack();
         ~Blackjack();
+        void initialisePlayers();
         void newGame();
+        
 };
 
 #endif
