@@ -5,17 +5,17 @@ unsigned int uniquePlayerID = 1;
 unsigned int uniqueCPUID = 1;
 
 Player::Player(){
-
+    // blank constructor
 }
 
-string Player::getName(){ return name; }
+const string Player::getName(){ return name; }
 void Player::setName(string name){ this->name = name; }
 
 void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card); }
 
-std::vector<shared_ptr<BlackjackCard>> Player::getHand(){ return playerHand; }
+const std::vector<shared_ptr<BlackjackCard>> Player::getHand(){ return playerHand; }
 
-int Player::handTotal(){
+const int Player::handTotal(){
     int total = 0;
     for(shared_ptr<BlackjackCard> card: playerHand){
         total += card->getPoints();

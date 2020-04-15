@@ -16,12 +16,12 @@ class Player{
 
     public:
         Player();
-        string getName();
+        const string getName();
         void setName(string name);
 
         void addCard(shared_ptr<BlackjackCard> card);
-        std::vector<shared_ptr<BlackjackCard>> getHand(); // return the vector that comprises of a players hand
-        int handTotal();
+        const std::vector<shared_ptr<BlackjackCard>> getHand(); // return the vector that comprises of a players hand
+        const int handTotal();
 
         virtual void test() = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
 
