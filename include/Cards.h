@@ -8,7 +8,7 @@
 using namespace std;
 
 
-class Card{
+class Card {
     private:
         int suit;
         int value;
@@ -25,7 +25,15 @@ class Card{
         string lookupSuit(int suit); // abstract/static? can be called anywhere
         string lookupValue(int value);
         static int rlookupValue(string cVal);
+};
 
+class BlackjackCard: public Card {
+    private:
+        int points;
+
+    public:
+        BlackjackCard(int suit,int value);
+        int getPoints();
 };
 
 #endif

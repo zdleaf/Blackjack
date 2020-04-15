@@ -9,7 +9,7 @@
 
 class Blackjack{
     private:
-        Deck<Card> *deck; // deck is initialised in constructor
+        Deck<BlackjackCard> *deck; // deck is initialised in constructor
         std::vector<Player*> playerVec; // vector of the players in the current game
 
     public:

@@ -11,17 +11,24 @@ Player::Player(){
 string Player::getName(){ return name; }
 void Player::setName(string name){ this->name = name; }
 
-void Player::setCard1(shared_ptr<Card> card){ card1 = card; }
-void Player::setCard2(shared_ptr<Card> card){ card2 = card; }
-shared_ptr<Card> Player::getCard1(){ return card1; }
-shared_ptr<Card> Player::getCard2(){ return card2; }
+void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card); }
+
+std::vector<shared_ptr<BlackjackCard>> Player::getHand(){ return playerHand; }
+
+int Player::handTotal(){
+    int total = 0;
+    for(shared_ptr<BlackjackCard> card: playerHand){
+        total += card->getPoints();
+    }
+    return total;
+}
 
 Human::Human():Player(){ // constructor
     setName("Player"+to_string(uniquePlayerID));
     uniquePlayerID++;
 }
 
-void Human::test(){ cout << getName() << endl; }
+void Human::test(){ cout << getName() << endl; }  
 
 CPU::CPU():Player(){ // constructor
     setName("CPU"+to_string(uniqueCPUID));

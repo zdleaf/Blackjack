@@ -9,19 +9,19 @@
 
 class Player{
     private:
-        shared_ptr<Card> card1;
-        shared_ptr<Card> card2;
         string name;
+
+    protected:
+        std::vector<shared_ptr<BlackjackCard>> playerHand; // hand is a vector of shared_ptrs to cards in the deck
 
     public:
         Player();
         string getName();
         void setName(string name);
 
-        void setCard1(shared_ptr<Card> card);
-        void setCard2(shared_ptr<Card> card);
-        shared_ptr<Card> getCard1();
-        shared_ptr<Card> getCard2();
+        void addCard(shared_ptr<BlackjackCard> card);
+        std::vector<shared_ptr<BlackjackCard>> getHand(); // return the vector that comprises of a players hand
+        int handTotal();
 
         virtual void test() = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
 

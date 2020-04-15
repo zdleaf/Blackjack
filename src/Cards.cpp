@@ -62,3 +62,11 @@ int Card::rlookupValue(string cVal){ // reverse lookup
     else return 0;
 
 }
+
+BlackjackCard::BlackjackCard(int suit,int value):Card(suit, value){
+    // assign a points value to each card
+    if(value <= 9){ this->points = value; } // for A-9, each card value is worth the same in points
+    else if(value >= 10){ this->points = 10; } // if a picture card (10, J, Q, K), points are worth 10
+}
+
+int BlackjackCard::getPoints(){ return points; }
