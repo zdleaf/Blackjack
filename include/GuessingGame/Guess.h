@@ -16,14 +16,14 @@ class Guess{
     private:
         int numberOfGuesses;
         Deck<Card> *deck;
-        Card *card;
+        shared_ptr<Card> card;
 
     public:
         Guess();
         ~Guess();
         void generate();
 
-        Card* getCard();
+        shared_ptr<Card> getCard();
         int getNumberOfGuesses();
 
         void newGame();

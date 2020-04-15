@@ -15,7 +15,7 @@ void Guess::newGame(){
     gameLoop(); // start the game loop
 }
 
-Card* Guess::getCard(){ return card; }
+shared_ptr<Card> Guess::getCard(){ return card; }
 int Guess::getNumberOfGuesses(){ return numberOfGuesses; }
 
 void Guess::gameLoop(){
