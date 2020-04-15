@@ -5,7 +5,7 @@ Guess::Guess(){
 }
 
 Guess::~Guess(){
-    delete deck; // delete our deck of cards
+    delete deck; // delete our deck of cards when deconstructor called
 }
 
 void Guess::newGame(){

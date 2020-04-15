@@ -8,18 +8,19 @@
 
 class Player{
     private:
-        Card *card1;
-        Card *card2;
-        string name;
+        shared_ptr<Card> card1;
+        shared_ptr<Card> card2;
+        string name = "zach";
 
     public:
         Player();
         string getName();
 
-        void setCard1(Card *card);
-        void setCard2(Card *card);
-        Card* getCard1();
-        Card* getCard2();
+        void setCard1(shared_ptr<Card> card);
+        void setCard2(shared_ptr<Card> card);
+        shared_ptr<Card> getCard1();
+        shared_ptr<Card> getCard2();
+
 };
 
 class Human: public Player {

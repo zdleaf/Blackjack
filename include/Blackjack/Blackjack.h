@@ -14,9 +14,9 @@ class Blackjack{
         // store players in vector<Player>? or vector<CPU> vector<Human> - need to handle adding players and adding a hand for them
         // each player has 2 pointers to cards dealt from this deck
 
-        Human p1();
-        Human p2();
-        // std::vector<Human> playerVec = { p1, p2 };
+        Human p1;
+        Human p2;
+        std::vector<Human*> playerVec = { &p1, &p2 };
 
 
     public:

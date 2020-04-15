@@ -11,6 +11,8 @@
 
 //using namespace std;
 
+// template class to enable having decks of different Card types in future, e.g. Uno cards
+
 // implement a stack using std::vector
 // we can shuffle using std::shuffle
 // use shared ptrs for the cards
@@ -27,8 +29,8 @@ class Deck {
             deck.reserve(52); // reserve at least space for 52 cards
             for(int i = 1; i <= 4; i++){ // loop through all suits (1-4)
                 for(int j = 1; j <= 13; j++){ // loop through all potential cards (1-13)
-                    std::shared_ptr<T> card(new T(i, j));
-                    deck.push_back(card);
+                    std::shared_ptr<T> card(new T(i, j)); // create a shared_ptr to each card
+                    deck.push_back(card); // push onto our stack
                 } 
             }
             topCard = deck.begin(); // iterator to the first card in the deck
@@ -36,14 +38,8 @@ class Deck {
         
         // deconstructor
         ~Deck(){
-            // using shared_ptr so manual memory management/deletion not required
+            // using shared_ptr so manual memory management/deletion of cards not required
         }
-
-        // return the element on top of the deck (last element in vector is considered the top of the deck)
-        T& top(){ return deck.back(); }
-            
-        // push a card onto the top of the deck
-        void push(const T pushValue){ deck.push_back(pushValue); }
 
         void shuffle(){
             unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();

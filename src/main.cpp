@@ -6,12 +6,12 @@
 
 int main(){
     
-/*     Blackjack *blackjack = new Blackjack();
+    Blackjack *blackjack = new Blackjack();
     blackjack->newGame();
-    delete blackjack; */
+    delete blackjack;
 
-    Guess *guess = new Guess();
-    guess->newGame();
+/*     Guess *guess = new Guess();
+    guess->newGame(); */
 
 /*     Deck<Card> *deck = new Deck<Card>();
     deck->shuffle();
