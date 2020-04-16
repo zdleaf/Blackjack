@@ -23,6 +23,11 @@ const int Player::handTotal(){
     return total;
 }
 
+const void Player::displayHand(){
+    for(shared_ptr<BlackjackCard> card: playerHand){ cout << card->toStr(); } // print each card in the players hand
+    cout << " total:" << handTotal() << endl;  
+}
+
 Human::Human():Player(){ // constructor
     setName("Player"+to_string(uniquePlayerID));
     uniquePlayerID++;
@@ -30,9 +35,24 @@ Human::Human():Player(){ // constructor
 
 void Human::test(){ cout << getName() << endl; }  
 
+void Human::playLoop(Deck<BlackjackCard> *deck){
+    while(handTotal() < 17){
+        addCard(deck->deal());
+        displayHand();
+    }
+}
+
 CPU::CPU():Player(){ // constructor
     setName("CPU"+to_string(uniqueCPUID));
     uniqueCPUID++;
 }
 
 void CPU::test(){ cout << getName() << endl; }  
+
+void CPU::playLoop(Deck<BlackjackCard> *deck){
+    while(handTotal() < 17){
+        addCard(deck->deal());
+        displayHand();
+    }
+    
+}

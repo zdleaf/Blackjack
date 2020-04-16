@@ -29,9 +29,6 @@ void Blackjack::newGame(){
     deck->shuffle(); // shuffle the deck
 
     // deal two cards to each player in turn - for each player in vector
-/*     for( Human p: playerVec){ p.setCard1(deck->deal()); } // deal first card
-    for( Human p: playerVec){ p.setCard2(deck->deal()); } // deal second card */
-
     for( Player* p: playerVec){ p->addCard(deck->deal()); }
     for( Player* p: playerVec){ p->addCard(deck->deal()); }
 
@@ -39,8 +36,8 @@ void Blackjack::newGame(){
     p1.setCard2(deck->deal()); */
     for( Player* p: playerVec){ 
         cout << p->getName() << ": ";
-        for(shared_ptr<BlackjackCard> card: p->getHand()){ cout << card->toStr(); } // print each card in the players hand
-        cout << " total:" << p->handTotal() << endl;  
+        p->displayHand(); 
+        p->playLoop(deck);
     }
     
 }
