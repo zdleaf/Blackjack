@@ -87,6 +87,7 @@ std::vector<int> Guess::validateInput(){
     } 
     else if(validatedInput[0] == '1' && validatedInput[1] == '0'){ result[0] = 10; } 
     else if(validatedInput[0] == '1' && validatedInput[1] != '0'){ result[0] = 1; }
+    else if(validatedInput[0] == 'T' || validatedInput[0] == 't'){ result[0] = 10; }
     else if(validatedInput[0] == 'A' || validatedInput[0] == 'a'){ result[0] = 1; }
     else if(validatedInput[0] == 'J' || validatedInput[0] == 'j'){ result[0] = 11; }
     else if(validatedInput[0] == 'Q' || validatedInput[0] == 'q'){ result[0] = 12; }
