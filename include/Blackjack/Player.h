@@ -23,6 +23,7 @@ class Player{
         const std::vector<shared_ptr<BlackjackCard>> getHand(); // return the vector that comprises of a players hand
         const int handTotal();
         const void displayHand();
+        const void displayAscii();
 
         virtual void test() = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
         virtual void playLoop(Deck<BlackjackCard> *deck) = 0;

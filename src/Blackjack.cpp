@@ -35,9 +35,10 @@ void Blackjack::newGame(){
 /*     p1.setCard1(deck->deal());
     p1.setCard2(deck->deal()); */
     for( Player* p: playerVec){ 
-        cout << p->getName() << ": ";
-        p->displayHand(); 
-        p->playLoop(deck);
+        cout << p->getName() << ": " << endl;
+        p->displayAscii(); 
+        p->displayHand();
+        //p->playLoop(deck);
     }
     
 }

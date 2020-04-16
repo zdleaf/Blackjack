@@ -28,6 +28,16 @@ const void Player::displayHand(){
     cout << " total:" << handTotal() << endl;  
 }
 
+// display ascii representation of players cards
+const void Player::displayAscii(){
+    array<string, 6> asciiCards; // array to hold the 6 lines of ascii strings that makes up a card
+    for(shared_ptr<BlackjackCard> card: playerHand){
+        array<string, 6> tempCard = card->getAscii(); // get the ascii of each card
+        for(int i=0; i<6;i++){ asciiCards[i].append(tempCard[i]); } // append each line to our ascii representation
+    }
+    for(string s: asciiCards){ cout << s << endl; } // display
+}
+
 Human::Human():Player(){ // constructor
     setName("Player"+to_string(uniquePlayerID));
     uniquePlayerID++;

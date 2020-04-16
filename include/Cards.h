@@ -4,6 +4,9 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include <array>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,6 +24,7 @@ class Card {
         int getValue();
         string getSuitStr();
         string getValueStr();
+        array<string, 6> getAscii();
 
         string lookupSuit(int suit); // abstract/static? can be called anywhere
         string lookupValue(int value);

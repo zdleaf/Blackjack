@@ -37,7 +37,7 @@ string Card::lookupValue(int cVal){
         case 7: return "7";
         case 8: return "8";
         case 9: return "9";
-        case 10: return "10";
+        case 10: return "T";
         case 11: return "J";
         case 12: return "Q";
         case 13: return "K";
@@ -60,7 +60,23 @@ int Card::rlookupValue(string cVal){ // reverse lookup
     else if(cVal == "Q"){ return 12; }
     else if(cVal == "K"){ return 13; }
     else return 0;
+}
 
+array<string, 6> Card::getAscii(){
+    // hjw's card templates from https://ascii.co.uk/art/cards
+    array<string, 6> heart = {".------.", "|X_  _ |", "|( \\/ )|", "| \\  / |", "|  \\/ X|", "'------'"};
+    array<string, 6> diamond = {".------.", "|X /\\  |", "| /  \\ |", "| \\  / |", "|  \\/ X|", "'------'"};
+    array<string, 6> club = {".------.", "|X _   |", "| ( )  |", "|(_x_) |", "|  Y  X|", "'------'"};
+    array<string, 6> spade = {".------.", "|X .   |", "| / \\  |", "|(_,_) |", "|  I  X|", "'------'"};
+    
+    array<string, 6> asciiSuit;
+    if(suit == 1){ asciiSuit = heart; }
+    else if (suit == 2) { asciiSuit = diamond; }
+    else if (suit == 3) { asciiSuit = spade; }
+    else { asciiSuit = club; }
+
+    for(int i=0; i<6; i++){ replace(asciiSuit[i].begin(), asciiSuit[i].end(), 'X', lookupValue(value)[0]); } // replace the X on the template card with the char value
+    return asciiSuit;
 }
 
 BlackjackCard::BlackjackCard(int suit,int value):Card(suit, value){
