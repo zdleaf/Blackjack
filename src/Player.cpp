@@ -56,6 +56,11 @@ const void Player::displayHiddenHand(){
     for(string s: asciiCards){ cout << s << endl; } 
 }
 
+const bool Player::bust(){
+    if(handTotal() > 21){ return true; }
+    return false;
+}
+
 Human::Human():Player(){ // constructor
     setName("Player"+to_string(uniquePlayerID));
     uniquePlayerID++;
@@ -70,13 +75,15 @@ bool Human::playLoop(Deck<BlackjackCard> *deck){
     return true;
 }
 
-CPU::CPU():Player(){ // constructor
+CPU::CPU(Blackjack *blackjack):Player(){ // constructor
     setName("CPU"+to_string(uniqueCPUID));
     uniqueCPUID++;
+    this->blackjack = blackjack;
 }
 
 bool CPU::playLoop(Deck<BlackjackCard> *deck){
-    while(handTotal() < 17){
+    int highestScore = blackjack->highestScore(); cout << "Score to beat: " << highestScore << endl;
+    while(handTotal() < highestScore && highestScore <= 21){
         cout << "\nCPU twists" << endl;
         cout << "Dealing another card: " << endl;
         addCard(deck->deal());

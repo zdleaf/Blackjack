@@ -31,7 +31,8 @@ void Blackjack::addHumanPlayer(){
 }
 
 void Blackjack::addCPUPlayer(){
-    CPU* player = new CPU();
+    CPU* player = new CPU(this);
+    dealer = player; // save reference to CPU player/dealer
     playerVec.push_back((Player*)player); // upcasting
 }
 
@@ -67,27 +68,37 @@ bool Blackjack::playLoop(){
     bool livePlayers = false; // keep track of if there are human players with hands that are not bust, as CPU will not need to draw further cards
     for(Player* p: playerVec){
         p->displayFullHand();
-        if (auto dp1 = dynamic_cast<Human*>(p)){  // if human player
+        if (p != dealer){  // if human player
             livePlayers = p->playLoop(deck); // polymorphic method playLoop() is different for CPU/Human players 
         } 
-        else if (auto dp2 = dynamic_cast<CPU*>(p) && livePlayers == true) { p->playLoop(deck); } // if CPU player and there are live players
+        else if (p == dealer && livePlayers == true) { p->playLoop(deck); } // if CPU player and there are live players
         else { break; } // otherwise all players have bust - CPU does not need to play
     }
-    Player* winner = determineWinner();
-    cout << winner->getName() << " WINS!" << endl;
+    determineWinner();
     return true;
 }
 
 // loop through the player vector to determine the player with the winning hand
-Player* Blackjack::determineWinner(){
-    int highestTotal = 0; // store the highest total hand (that's 21 or less)
-    Player* winner; // store the player with the highest total
+void Blackjack::determineWinner(){
     for(Player* p: playerVec){
-        if(p->handTotal() < 21 && p->handTotal() > highestTotal){
-            winner = p; highestTotal = p->handTotal();
+        if(p != dealer){ // for all human players
+            if(!p->bust() && !dealer->bust()){ // where player and dealer have not bust
+                if(p->handTotal() > dealer->handTotal()){ cout << p->getName() << " WINS!" << endl; } // player has more points than dealer
+                else{ cout << p->getName() << " loses!" << endl;} 
+            } else if(!p->bust() && dealer->bust()){ cout << p->getName() << " WINS!" << endl; } // player has not bust, but dealer has
+            else if (p->bust()) { cout << p->getName() << " loses!" << endl; } // otherwise player has bust
         }
     }
-    return winner;
+}
+
+int Blackjack::highestScore(){ // get the highest score out of all players
+    int highestScore = 0;
+    for(Player* p: playerVec){
+        if(p != dealer && p->handTotal() > highestScore){ // for all human players
+            highestScore = p->handTotal();
+        }
+    }
+    return highestScore;
 }
 
 void Blackjack::playAgain(){

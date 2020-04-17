@@ -7,10 +7,13 @@
 #include "../Cards.h"
 #include "Player.h"
 
+class Player; // forward declaration
+
 class Blackjack{
     private:
         Deck<BlackjackCard> *deck; // deck is initialised in constructor
         std::vector<Player*> playerVec; // vector of the players in the current game
+        Player* dealer; // pointer to the CPU player/dealer (also in the playerVec)
 
     public:
         Blackjack();
@@ -21,7 +24,8 @@ class Blackjack{
         void gameLoop();
         void playAgain();
         bool playLoop();
-        Player* determineWinner();
+        void determineWinner();
+        int highestScore();
 
 };
 

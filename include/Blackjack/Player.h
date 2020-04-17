@@ -6,6 +6,9 @@
 
 #include "../Deck.h"
 #include "../Cards.h"
+#include "Blackjack.h"
+
+class Blackjack; // forward declaration
 
 class Player{
     private:
@@ -27,6 +30,7 @@ class Player{
         const void displayAscii();
         const void displayFullHand();
         const void displayHiddenHand();
+        const bool bust();
  
         virtual bool playLoop(Deck<BlackjackCard> *deck) = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
 
@@ -43,9 +47,10 @@ class Human: public Player {
 
 class CPU: public Player {
     private:
+        Blackjack *blackjack; // pointer to blackjack game object so CPU has access to game info
 
     public:
-        CPU();
+        CPU(Blackjack* blackjack);
         bool playLoop(Deck<BlackjackCard> *deck);
 };
 
