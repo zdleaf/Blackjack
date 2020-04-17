@@ -15,6 +15,8 @@ void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card)
 
 const std::vector<shared_ptr<BlackjackCard>> Player::getHand(){ return playerHand; }
 
+void Player::clearHand(){ playerHand.clear(); }
+
 const int Player::handTotal(){
     int total = 0;
     for(shared_ptr<BlackjackCard> card: playerHand){
@@ -28,8 +30,8 @@ const void Player::displayHand(){
     cout << " total:" << handTotal() << endl;  
 }
 
-// display ascii representation of players cards
-const void Player::displayAscii(){
+
+const void Player::displayAscii(){ // display ascii representation of players cards
     array<string, 6> asciiCards; // array to hold the 6 lines of ascii strings that makes up a card
     for(shared_ptr<BlackjackCard> card: playerHand){
         array<string, 6> tempCard = card->getAscii(); // get the ascii of each card
@@ -38,18 +40,34 @@ const void Player::displayAscii(){
     for(string s: asciiCards){ cout << s << endl; } // display
 }
 
+const void Player::displayFullHand(){ // display full hand, including name, ascii and total
+    cout << "\n" << name << ": " << endl;
+    displayAscii(); 
+    displayHand();
+}
+
+const void Player::displayHiddenHand(){
+    cout << "\n" << name << ": " << endl;
+    array<string, 6> hiddenCard = {".------.", "|------|", "|------|", "|------|", "|------|", "'------'"};
+    array<string, 6> asciiCards;
+    for(int i = 0; i<playerHand.size(); i++){ // display a hidden card for the number of cards in playerHand
+        for(int i=0; i<6;i++){ asciiCards[i].append(hiddenCard[i]); } // append each line to our ascii representation
+    }
+    for(string s: asciiCards){ cout << s << endl; } 
+}
+
 Human::Human():Player(){ // constructor
     setName("Player"+to_string(uniquePlayerID));
     uniquePlayerID++;
 }
 
-void Human::test(){ cout << getName() << endl; }  
-
-void Human::playLoop(Deck<BlackjackCard> *deck){
-    while(handTotal() < 17){
+bool Human::playLoop(Deck<BlackjackCard> *deck){
+    while(handTotal() < 15 && playerHand.size() <= 5){
         addCard(deck->deal());
-        displayHand();
+        displayFullHand();
     }
+    if(handTotal() > 21){ cout << "\nBUST!" << endl; return false; }
+    return true;
 }
 
 CPU::CPU():Player(){ // constructor
@@ -57,12 +75,13 @@ CPU::CPU():Player(){ // constructor
     uniqueCPUID++;
 }
 
-void CPU::test(){ cout << getName() << endl; }  
-
-void CPU::playLoop(Deck<BlackjackCard> *deck){
+bool CPU::playLoop(Deck<BlackjackCard> *deck){
     while(handTotal() < 17){
+        cout << "\nCPU twists" << endl;
+        cout << "Dealing another card: " << endl;
         addCard(deck->deal());
-        displayHand();
+        displayFullHand();
     }
-    
+    if(handTotal() > 21){ cout << "\nBUST!" << endl; return false; }
+    return true;
 }

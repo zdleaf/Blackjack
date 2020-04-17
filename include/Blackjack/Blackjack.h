@@ -18,8 +18,11 @@ class Blackjack{
         void addHumanPlayer();
         void addCPUPlayer();
         void newGame();
+        void gameLoop();
+        void playAgain();
+        bool playLoop();
+        Player* determineWinner();
 
-        
 };
 
 #endif
