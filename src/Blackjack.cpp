@@ -15,7 +15,8 @@ Blackjack::Blackjack(){
     // add the players
     addHumanPlayer();
     addHumanPlayer();
-    addCPUPlayer(); 
+    addCPUPlayer();
+    initialiseScores();
 }
 
 // de-constructor
@@ -35,6 +36,12 @@ void Blackjack::addCPUPlayer(){
     dealer = player; // save reference to CPU player/dealer
     playerVec.push_back((Player*)player); // upcasting
 }
+
+void Blackjack::initialiseScores(){
+   for ( Player* p: playerVec){
+       scoreMap.insert({p, 0}); // initialise the scores for all players to 0
+   };
+};
 
 void Blackjack::newGame(){
     deck->shuffle(); // shuffle the deck
@@ -75,19 +82,37 @@ bool Blackjack::playLoop(){
         else { break; } // otherwise all players have bust - CPU does not need to play
     }
     determineWinner();
+    displayStats();
+    currentRound++;
     return true;
 }
 
 // loop through the player vector to determine the player with the winning hand
 void Blackjack::determineWinner(){
+    roundWinners.push_back(""); // insert a new element in roundWinners vector to store winner names
     for(Player* p: playerVec){
         if(p != dealer){ // for all human players
             if(!p->bust() && !dealer->bust()){ // where player and dealer have not bust
-                if(p->handTotal() > dealer->handTotal()){ cout << p->getName() << " WINS!" << endl; } // player has more points than dealer
-                else{ cout << p->getName() << " loses!" << endl;} 
-            } else if(!p->bust() && dealer->bust()){ cout << p->getName() << " WINS!" << endl; } // player has not bust, but dealer has
-            else if (p->bust()) { cout << p->getName() << " loses!" << endl; } // otherwise player has bust
+                if(p->handTotal() > dealer->handTotal()){ cout << p->getName() << " WINS!" << endl; incrementStats(p); } // player has more points than dealer
+                else{ cout << p->getName() << " loses!" << endl; incrementStats(dealer); } 
+            } else if(!p->bust() && dealer->bust()){ cout << p->getName() << " WINS!" << endl; incrementStats(p); } // player has not bust, but dealer has
+            else if (p->bust()) { cout << p->getName() << " loses!" << endl; incrementStats(dealer); } // otherwise player has bust
         }
+    }
+}
+
+void Blackjack::incrementStats(Player* p){
+    scoreMap[p]++; roundWinners[currentRound-1] += p->getName() + " ";
+}
+
+void Blackjack::displayStats(){
+    cout << "\nStatistics: " << endl;
+    for(const auto &scorePair : scoreMap){
+        cout << scorePair.first->getName() << ": " << scorePair.second << endl;
+    }
+    cout << "----" << endl;
+    for(int i = 0; i < currentRound; i++){
+        cout << "Round " << i+1 << ": " << roundWinners[i] << endl;
     }
 }
 
