@@ -17,7 +17,7 @@ class Blackjack{
         Player* dealer; // pointer to the CPU player/dealer (also in the playerVec)
         unordered_map<Player*, int> scoreMap; // hash map to save score
         vector<string> roundWinners; // vector to store the names of the winning players for each round
-        int currentRound = 1; // store the current round
+        int currentRound = 0; // store the current round
 
     public:
         Blackjack();

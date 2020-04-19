@@ -15,13 +15,13 @@ Blackjack::Blackjack(){
     // add the players
     addHumanPlayer();
     addHumanPlayer();
+    addHumanPlayer();
     addCPUPlayer();
     initialiseScores();
 }
 
 // de-constructor
 Blackjack::~Blackjack(){
-    cout << "Deconstructor called" << endl;
     delete deck; // delete our deck of cards
     for( Player* p: playerVec){ delete p; }; // delete all our players
 }
@@ -67,7 +67,7 @@ void Blackjack::gameLoop(){
     cout << " - In case of draw, the player with more cards in their hand wins" << endl;
     cout << "---------------------------------------------------------------" << endl;
   
-    while(!gameOver){ gameOver = playLoop(); } // run playLoop() until the game is won
+    while(!gameOver){ gameOver = currentRound++; playLoop(); } // run playLoop() until the game is won
     if(gameOver){ playAgain(); } // if we've won, display play again dialog
 }
 
@@ -82,8 +82,6 @@ bool Blackjack::playLoop(){
         else { break; } // otherwise all players have bust - CPU does not need to play
     }
     determineWinner();
-    displayStats();
-    currentRound++;
     return true;
 }
 
@@ -107,19 +105,21 @@ void Blackjack::incrementStats(Player* p){
 
 void Blackjack::displayStats(){
     cout << "\nStatistics: " << endl;
+    cout << "---------------------" << endl;
     for(const auto &scorePair : scoreMap){
         cout << scorePair.first->getName() << ": " << scorePair.second << endl;
     }
-    cout << "----" << endl;
+    cout << "---------------------" << endl;
     for(int i = 0; i < currentRound; i++){
         cout << "Round " << i+1 << ": " << roundWinners[i] << endl;
     }
+    cout << "---------------------" << endl;
 }
 
 int Blackjack::highestScore(){ // get the highest score out of all players
     int highestScore = 0;
     for(Player* p: playerVec){
-        if(p != dealer && p->handTotal() > highestScore){ // for all human players
+        if(p != dealer && p->handTotal() > highestScore && p->handTotal() <= 21){ // for all human players
             highestScore = p->handTotal();
         }
     }
@@ -133,5 +133,6 @@ void Blackjack::playAgain(){
     cin >> input;
     cin.ignore();
     if (input == "y") { newGame(); }
-    exit(0);
+    else { displayStats(); exit(0); }
+    
 }
