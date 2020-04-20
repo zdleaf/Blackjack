@@ -24,13 +24,13 @@ void Blackjack::addPlayersUI(){
     int humanPlayers;
     while(true){
         string input; 
-        cout << "Enter the number of human players (1-5): ";
+        cout << "Enter the number of human players (1-10): ";
         cin >> input;
         cin.ignore();
         stringstream ss(input); // use stringstream to validate our input
         ss >> humanPlayers;
-        if (ss.fail()) { cout << "Invalid input. Please enter a number 1-5" << endl; } // if to int fails for any reason e.g. non-number entered
-        else if (humanPlayers > 5 || humanPlayers < 1){ cout << "Invalid input. Please enter a number 1-5" << endl; }
+        if (ss.fail()) { cout << "Invalid input. Please enter a number 1-9" << endl; } // if to int fails for any reason e.g. non-number entered
+        else if (humanPlayers > 9 || humanPlayers < 1){ cout << "Invalid input. Please enter a number 1-9" << endl; }
         else { break; }
     }
     for(int i=0;i<humanPlayers;i++){ addHumanPlayer(); }  

@@ -9,18 +9,10 @@
 
 #include "Cards.h"
 
-//using namespace std;
-
-// template class to enable having decks of different Card types
-
-// implement a stack using std::vector
-// we can shuffle using std::shuffle
-// use shared ptrs for the cards
-
-template <typename T>
+template <typename T> // template class to enable decks of multiple different card types
 class Deck {
     private: 
-        std::vector<std::shared_ptr<T>> deck; // internal representation of the card deck is a stack implemented using vector - once created this never changes
+        std::vector<std::shared_ptr<T>> deck; // internal representation of the card deck is a stack of shared_ptr's implemented using vector - once created this never changes
         typename std::vector<std::shared_ptr<T>>::iterator topCard; // iterator to the top card in our deck
 
     public:
@@ -47,7 +39,7 @@ class Deck {
             topCard = deck.begin(); // set the iterator back to the beginning
         }
         
-        // DEAL - return topCard and increment topCard iterator to the next card
+        // deal() - return shared_ptr to topCard and increment topCard iterator to the next card
         std::shared_ptr<T> deal() { 
             std::shared_ptr<T> card = *topCard;
             if(topCard == deck.end()){ return nullptr; } // if we are at the end of the deck, return nullptr

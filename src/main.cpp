@@ -7,7 +7,7 @@
 int main(){
     
     cout << "---------------------------------------------------------------" << endl;
-    cout << "              What game do you want to play: " << endl;
+    cout << "              What game do you want to play? " << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << " 1. Card Guessing Game" << endl;
     cout << " 2. Blackjack" << endl;
@@ -34,25 +34,4 @@ int main(){
         delete blackjack;
     }
 
-/*     Guess *guess = new Guess();
-    guess->newGame(); */
-
-/*     Deck<Card> *deck = new Deck<Card>();
-    deck->shuffle();
-    Card *card = deck->deal();
-    delete newGame;
-
-   //TEST END OF VECTOR/OUT OF BOUNDS
-    for(int i=0; i < 55; i++){
-        if(card != nullptr){
-            cout << card->toStr() << endl;
-        } else { cout << "end of deck - no more cards left" << endl; }
-        card = deck->deal();
-    }  
-    
-    delete deck;
-    
-    */
-
-    
 }
