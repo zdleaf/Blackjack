@@ -5,9 +5,7 @@ Blackjack::Blackjack(){
     deck = new Deck<BlackjackCard>(); // create a deck of cards
     
     // add the players
-    addHumanPlayer();
-    //addHumanPlayer();
-    //addHumanPlayer();
+    addPlayersUI();
     addCPUPlayer();
     initialiseScores();
 }
@@ -21,6 +19,22 @@ Blackjack::~Blackjack(){
 void Blackjack::addHumanPlayer(){
     Human* player = new Human();
     playerVec.push_back((Player*)player); // upcasting
+}
+
+void Blackjack::addPlayersUI(){
+    int humanPlayers;
+    while(true){
+        string input; 
+        cout << "Enter the number of human players (1-5): ";
+        cin >> input;
+        cin.ignore();
+        stringstream ss(input); // use stringstream to validate our input
+        ss >> humanPlayers;
+        if (ss.fail()) { cout << "Invalid input. Please enter a number 1-5" << endl; } // if to int fails for any reason e.g. non-number entered
+        else if (humanPlayers > 5 || humanPlayers < 1){ cout << "Invalid input. Please enter a number 1-5" << endl; }
+        else { break; }
+    }
+    for(int i=0;i<humanPlayers;i++){ addHumanPlayer(); }  
 }
 
 void Blackjack::addCPUPlayer(){

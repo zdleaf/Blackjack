@@ -22,6 +22,7 @@ class Blackjack{
         int currentRound = 0; // store the current round
 
     public:
+        void addPlayersUI();
         Blackjack();
         ~Blackjack();
         void addHumanPlayer();
