@@ -14,8 +14,8 @@ Blackjack::Blackjack(){
     
     // add the players
     addHumanPlayer();
-    addHumanPlayer();
-    addHumanPlayer();
+    //addHumanPlayer();
+    //addHumanPlayer();
     addCPUPlayer();
     initialiseScores();
 }
@@ -47,6 +47,7 @@ void Blackjack::newGame(){
     deck->shuffle(); // shuffle the deck
 
     for( Player* p: playerVec){ p->clearHand(); } // clear any previous hands for each player
+    
     // deal two cards to each player in turn
     for( Player* p: playerVec){ p->addCard(deck->deal()); }
     for( Player* p: playerVec){ p->addCard(deck->deal()); }
@@ -67,7 +68,7 @@ void Blackjack::gameLoop(){
     cout << " - In case of draw, the player with more cards in their hand wins" << endl;
     cout << "---------------------------------------------------------------" << endl;
   
-    while(!gameOver){ gameOver = currentRound++; playLoop(); } // run playLoop() until the game is won
+    while(!gameOver){ currentRound++; gameOver = playLoop(); } // run playLoop() until the game is won
     if(gameOver){ playAgain(); } // if we've won, display play again dialog
 }
 

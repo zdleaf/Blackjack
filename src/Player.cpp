@@ -67,12 +67,24 @@ Human::Human():Player(){ // constructor
 }
 
 bool Human::playLoop(Deck<BlackjackCard> *deck){
-    while(handTotal() < 15 && playerHand.size() <= 5){
-        addCard(deck->deal());
-        displayFullHand();
+    string input;
+    string validatedInput;
+    while(true){
+        cout << "\n[s]tick or [t]wist: ";
+        cin >> input;
+        cin.ignore();
+        if (input == "quit"){ exit(0); }
+        else if(input == "t" || input == "T"){
+            addCard(deck->deal());
+            displayFullHand();
+            if(handTotal() > 21){ cout << "\n" << getName() << " BUST!" << endl; return false; }
+        }
+        else if(input == "s" || input == "S"){
+            if(handTotal() <= 21){ return true; }
+        }
+        else { cout << "Invalid input. Enter \"s\" to stick or \"t\" to twist: "; }
     }
-    if(handTotal() > 21){ cout << "\nBUST!" << endl; return false; }
-    return true;
+    return false;
 }
 
 CPU::CPU(Blackjack *blackjack):Player(){ // constructor
@@ -82,13 +94,14 @@ CPU::CPU(Blackjack *blackjack):Player(){ // constructor
 }
 
 bool CPU::playLoop(Deck<BlackjackCard> *deck){
-    int highestScore = blackjack->highestScore(); cout << "Score to beat: " << highestScore << endl;
+    int highestScore = blackjack->highestScore(); cout << "\nHighest player score to beat: " << highestScore << endl;
     while(handTotal() < highestScore){
+        cout << "\nCPU thinking "; for(int i=0;i<10;i++){ this_thread::sleep_for(chrono::milliseconds(100)); cout << "."; cout.flush(); }
         cout << "\nCPU twists" << endl;
         cout << "Dealing another card: " << endl;
         addCard(deck->deal());
         displayFullHand();
     }
-    if(handTotal() > 21){ cout << "\nBUST!" << endl; return false; }
+    if(handTotal() > 21){ cout << "\nCPU BUSTS!" << endl; return false; }
     return true;
 }
