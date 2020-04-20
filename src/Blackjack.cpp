@@ -1,13 +1,5 @@
 #include "include/Blackjack/Blackjack.h"
 
-/* DYNAMIC DOWNCAST CODE
-
-        if (auto dp = dynamic_cast<Human*>(p)) { // dynamically downcast from Player to Human (returns nullptr if Player cannot be downcast)
-            dp->displayFullHand(); 
-            dp->playLoop(deck); // call the polymorphic Human
-        } 
-        else if (auto dp2 = dynamic_cast<CPU*>(p)) { dp2->displayHiddenHand(); } */
-
 // constructor
 Blackjack::Blackjack(){
     deck = new Deck<BlackjackCard>(); // create a deck of cards
@@ -58,14 +50,12 @@ void Blackjack::newGame(){
 void Blackjack::gameLoop(){
     bool gameOver = false;
     cout << "---------------------------------------------------------------" << endl;
-    cout << "               Welcome to the Blackjack!" << endl;
+    cout << "               Welcome to Blackjack!" << endl;
     cout << "---------------------------------------------------------------" << endl;
-    cout << "Type \"quit\" to exit at any time" << endl;
-    cout << "---------------------------------------------------------------" << endl;
-    cout << " - Dealer twists until they have a hand higher than the player or busts" << endl;
     cout << " - Over 21 = BUST" << endl;
+    cout << " - Dealer twists until they have a hand higher than the player" << endl;
+    cout << "   or busts" << endl;
     cout << " - Maximum 5 cards in a hand" << endl;
-    cout << " - In case of draw, the player with more cards in their hand wins" << endl;
     cout << "---------------------------------------------------------------" << endl;
   
     while(!gameOver){ currentRound++; gameOver = playLoop(); } // run playLoop() until the game is won
@@ -73,6 +63,8 @@ void Blackjack::gameLoop(){
 }
 
 bool Blackjack::playLoop(){
+    cout << "                     ROUND " << currentRound << endl;
+    cout << "---------------------------------------------------------------" << endl;
     bool livePlayers = false; // keep track of if there are human players with hands that are not bust, as CPU will not need to draw further cards
     for(Player* p: playerVec){
         p->displayFullHand();
@@ -89,6 +81,7 @@ bool Blackjack::playLoop(){
 // loop through the player vector to determine the player with the winning hand
 void Blackjack::determineWinner(){
     roundWinners.push_back(""); // insert a new element in roundWinners vector to store winner names
+    cout << endl;
     for(Player* p: playerVec){
         if(p != dealer){ // for all human players
             if(!p->bust() && !dealer->bust()){ // where player and dealer have not bust

@@ -2,7 +2,6 @@
 
 // store the last uniqueID used when assigned CPU and/or Players - incremented when each constructor is called
 unsigned int uniquePlayerID = 1;
-unsigned int uniqueCPUID = 1;
 
 Player::Player(){
     // blank constructor
@@ -73,14 +72,14 @@ bool Human::playLoop(Deck<BlackjackCard> *deck){
         cout << "\n[s]tick or [t]wist: ";
         cin >> input;
         cin.ignore();
-        if (input == "quit"){ exit(0); }
-        else if(input == "t" || input == "T"){
+        if(input == "t" || input == "T"){
             addCard(deck->deal());
             displayFullHand();
-            if(handTotal() > 21){ cout << "\n" << getName() << " BUST!" << endl; return false; }
+            if(bust()){ cout << "\n" << getName() << " BUST!" << endl; return false; }
+            else if(playerHand.size() == 5){ cout << "Maximum 5 cards reached" << endl; return true; }
         }
         else if(input == "s" || input == "S"){
-            if(handTotal() <= 21){ return true; }
+            if(!bust()){ return true; }
         }
         else { cout << "Invalid input. Enter \"s\" to stick or \"t\" to twist: "; }
     }
@@ -88,19 +87,19 @@ bool Human::playLoop(Deck<BlackjackCard> *deck){
 }
 
 CPU::CPU(Blackjack *blackjack):Player(){ // constructor
-    setName("CPU"+to_string(uniqueCPUID));
-    uniqueCPUID++;
+    setName("Dealer");
     this->blackjack = blackjack;
 }
 
 bool CPU::playLoop(Deck<BlackjackCard> *deck){
     int highestScore = blackjack->highestScore(); cout << "\nHighest player score to beat: " << highestScore << endl;
     while(handTotal() < highestScore){
-        cout << "\nCPU thinking "; for(int i=0;i<10;i++){ this_thread::sleep_for(chrono::milliseconds(100)); cout << "."; cout.flush(); }
+        cout << "\nCPU thinking"; for(int i=0;i<10;i++){ this_thread::sleep_for(chrono::milliseconds(100)); cout << "."; cout.flush(); }
         cout << "\nCPU twists" << endl;
         cout << "Dealing another card: " << endl;
         addCard(deck->deal());
         displayFullHand();
+        if(playerHand.size() == 5){ cout << "Maximum 5 cards reached" << endl; break; }
     }
     if(handTotal() > 21){ cout << "\nCPU BUSTS!" << endl; return false; }
     return true;
