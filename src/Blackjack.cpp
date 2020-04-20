@@ -4,9 +4,8 @@
 Blackjack::Blackjack(){
     deck = new Deck<BlackjackCard>(); // create a deck of cards
     
-    // add the players
-    addPlayersUI();
-    addCPUPlayer();
+    addPlayersUI(); // prompt for the number of human players
+    addCPUPlayer(); // add the dealer/CPU player
     initialiseScores();
 }
 
@@ -83,7 +82,8 @@ bool Blackjack::playLoop(){
     for(Player* p: playerVec){
         p->displayFullHand();
         if (p != dealer){  // if human player
-            livePlayers = p->playLoop(deck); // polymorphic method playLoop() is different for CPU/Human players 
+            // polymorphic method playLoop() is different for CPU/Human players - returns false if bust, true if not bust
+            if(p->playLoop(deck)){ livePlayers = true; } // if any of the player hands is not bust, set livePlayers to true
         } 
         else if (p == dealer && livePlayers == true) { p->playLoop(deck); } // if CPU player and there are live players
         else { break; } // otherwise all players have bust - CPU does not need to play
