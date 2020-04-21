@@ -107,7 +107,7 @@ std::vector<int> Card::inputToCard(){ // static
 
     // test if second or third character is a suit: h,d,s,c
     int i;
-    if(validatedInput[1] == '0'){ i = 2; } // if it's a 10, we want to test the third character instead
+    if(validatedInput[0] == '1' && validatedInput[1] == '0'){ i = 2; } // if it's a 10, we want to test the third character instead
     else { i = 1; }
 
     if      (validatedInput[i] == 'h' || validatedInput[i] == 'H'){ result[1] = 1; }
