@@ -12,17 +12,18 @@
 template <typename T> // template class to enable decks of multiple different card types
 class Deck {
     private: 
-        std::vector<std::shared_ptr<T>> deck; // internal representation of the card deck is a vector of shared_ptr's - once created this never changes
-        typename std::vector<std::shared_ptr<T>>::iterator topCard; // iterator to the top card in our deck
+        std::array<std::shared_ptr<T>,52> deck; // internal representation of the card deck is a vector of shared_ptr's - once created this never changes
+        typename std::array<std::shared_ptr<T>,52>::iterator topCard; // iterator to the top card in our deck
 
     public:
         // constructor - generate a 52 card deck of all cards
         Deck(){ 
-            deck.reserve(52); // reserve at least space for 52 cards
+            auto it = deck.begin();
             for(int i = 1; i <= 4; i++){ // loop through all suits (1-4)
                 for(int j = 1; j <= 13; j++){ // loop through all potential cards (1-13)
                     std::shared_ptr<T> card(new T(i, j)); // create a shared_ptr to each card
-                    deck.push_back(card); // push card onto our deck
+                    *it = card; // push pointer to card onto our deck
+                    it++;
                 } 
             }
             topCard = deck.begin(); // start with iterator to the first card in the deck
