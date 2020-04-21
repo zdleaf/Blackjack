@@ -12,7 +12,7 @@
 template <typename T> // template class to enable decks of multiple different card types
 class Deck {
     private: 
-        std::array<std::shared_ptr<T>,52> deck; // internal representation of the card deck is a vector of shared_ptr's - once created this never changes
+        std::array<std::shared_ptr<T>,52> deck; // internal representation of the card deck is an array of shared_ptr's - once created this never changes
         typename std::array<std::shared_ptr<T>,52>::iterator topCard; // iterator to the top card in our deck
 
     public:
