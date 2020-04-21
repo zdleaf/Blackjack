@@ -43,9 +43,9 @@ bool Guess::guessLoop(){
     bool validInput = false;
     while(!validInput){
         cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl;
-        guessVec = Card::inputToCard();
+        guessVec = Card::inputToCard(); // get card input from Card class and return the card {suit,value}
         // cout << "guessVec[0]: " << guessVec[0] << " guessVec[1]: " << guessVec[1] << endl; // debug: display suit/value vector
-        if(guessVec[0] != 0 && guessVec[1] != 0) { validInput = true; } // validateInput() will always return "0" unless we get a valid input for suit/value
+        if(guessVec[0] != 0 && guessVec[1] != 0) { validInput = true; } // inputToCard() will always return "0" unless we get a valid input for suit/value
     }
     return compareGuess(guessVec); // compare our guess and return true or false
 }

@@ -23,12 +23,13 @@ class Guess{
         ~Guess();
         void generate();
 
+        // encapsulation/getters
         shared_ptr<Card> getCard();
         int getNumberOfGuesses();
 
+        // gameplay
         void newGame();
         void gameLoop();
-
         bool guessLoop();
         bool compareGuess(std::vector<int> guessVec);
         void playAgain();
