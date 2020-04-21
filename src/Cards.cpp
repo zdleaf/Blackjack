@@ -15,6 +15,8 @@ int Card::getValue() const { return value; }
 string Card::getSuitStr() const { return lookupSuit(getSuit()); }
 string Card::getValueStr() const { return lookupValue(getValue()); }
 
+void Card::setSuit(int suit){ if(suit >= 1 && suit <= 4){ this->suit = suit; } else { throw std::invalid_argument( "suit only accepts values 1-4" ); } }
+void Card::setValue(int value){ if(value >= 1 && value <= 13){ this->value = value; } else { throw std::invalid_argument( "value only accepts values 1-13" ); } }
 
 string Card::lookupSuit(int cSuit){ // static
     switch(cSuit){

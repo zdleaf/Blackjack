@@ -7,6 +7,7 @@
 #include <array>
 #include <string>
 #include <algorithm>
+#include <exception>
 
 using namespace std;
 
@@ -27,6 +28,10 @@ class Card {
         string getValueStr() const;
         string toStr() const; // string representation of the hand e.g. Ah, 5d
         array<string, 6> getAscii() const; // get ascii card representation
+
+        // set functions
+        void setSuit(int suit);
+        void setValue(int value);
 
         // lookup functions
         static string lookupSuit(int suit);
