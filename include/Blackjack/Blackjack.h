@@ -22,21 +22,26 @@ class Blackjack{
         int currentRound = 0; // store the current round
 
     public:
-        void addPlayersUI();
         Blackjack();
         ~Blackjack();
+
+        // initialise game
+        void addPlayersUI();
         void addHumanPlayer();
         void addCPUPlayer();
         void initialiseScores();
         void newGame();
+
+        // gameplay
         void gameLoop();
-        void displayStats();
-        void playAgain();
         bool playLoop();
-        void incrementStats(Player* p);
         void determineWinner();
+        void playAgain();
         int highestScore();
 
+        // stats
+        void displayStats();
+        void incrementStats(Player* p);
 };
 
 #endif

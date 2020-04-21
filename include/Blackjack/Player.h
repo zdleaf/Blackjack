@@ -21,20 +21,20 @@ class Player{
 
     public:
         Player();
-        const string getName();
+        string getName() const;
         void setName(string name);
 
         void addCard(shared_ptr<BlackjackCard> card);
-        const std::vector<shared_ptr<BlackjackCard>> getHand(); // return the vector that comprises of a players hand
+        std::vector<shared_ptr<BlackjackCard>> getHand() const; // return the vector that comprises of a players hand
         void clearHand();
-        const int handTotal();
-        const void displayHand();
-        const void displayAscii();
-        const void displayFullHand();
-        const void displayHiddenHand();
-        const bool bust();
- 
-        virtual bool playLoop(Deck<BlackjackCard> *deck) = 0; // make Player abstract - cannot be directly instantiated and all sub classes must implement this function
+        int handTotal() const;
+        void displayHand() const;
+        void displayAscii() const;
+        void displayFullHand() const;
+        void displayHiddenHand() const;
+        bool bust() const;
+
+        virtual bool playLoop(Deck<BlackjackCard> *deck) = 0; // make Player abstract with pure virtual - cannot be directly instantiated and all sub classes must implement this function
 
 };
 
@@ -43,7 +43,7 @@ class Human: public Player {
 
     public:
         Human();
-        bool playLoop(Deck<BlackjackCard> *deck);
+        bool playLoop(Deck<BlackjackCard> *deck); // handles actions for game play
 
 };
 
@@ -53,7 +53,7 @@ class CPU: public Player {
 
     public:
         CPU(Blackjack* blackjack);
-        bool playLoop(Deck<BlackjackCard> *deck);
+        bool playLoop(Deck<BlackjackCard> *deck); // handles actions for CPU gameplay
 };
 
 #endif

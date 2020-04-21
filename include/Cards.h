@@ -17,17 +17,20 @@ class Card {
         int value;
 
     public:
-        Card(int suit,int value);
-        string toStr();
+        // constructor
+        Card(int suit,int value); 
+        
+        // get functions
+        string toStr() const; // string representation of the hand e.g. Ah, 5d
+        int getSuit() const;
+        int getValue() const;
+        string getSuitStr() const;
+        string getValueStr() const;
+        array<string, 6> getAscii() const; // get ascii card representation
 
-        int getSuit();
-        int getValue();
-        string getSuitStr();
-        string getValueStr();
-        array<string, 6> getAscii();
-
-        string lookupSuit(int suit); // abstract/static? can be called anywhere
-        string lookupValue(int value);
+        // lookup functions
+        static string lookupSuit(int suit);
+        static string lookupValue(int value);
         static int rlookupValue(string cVal);
 };
 
@@ -37,7 +40,7 @@ class BlackjackCard: public Card {
 
     public:
         BlackjackCard(int suit,int value);
-        int getPoints();
+        int getPoints() const;
 };
 
 #endif

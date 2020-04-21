@@ -67,8 +67,8 @@ void Blackjack::gameLoop(){
     cout << "---------------------------------------------------------------" << endl;
     cout << " - All players play against the dealer/CPU" << endl;
     cout << " - Over 21 = BUST" << endl;
-    cout << " - Dealer twists until they have a hand higher than the player" << endl;
-    cout << "   or busts" << endl;
+    cout << " - Dealer twists until they have a hand higher than the player," << endl;
+    cout << "   reaches 21, or busts" << endl;
     cout << " - Maximum 5 cards in a hand" << endl;
     cout << " - In case of a draw, player with the most cards in their hand" << endl;
     cout << "   wins (or human player wins if both have 5 cards)" << endl;
@@ -100,7 +100,7 @@ void Blackjack::determineWinner(){
     roundWinners.push_back(""); // insert a new element in roundWinners vector to store winner names
     cout << endl;
 
-    // lambda functions
+    // lambda functions for displaying win message/incrementing stats
     auto playerWins = [this](Player* p){cout << p->getName() << " WINS!" << endl; incrementStats(p);};
     auto playerLoses = [this](Player* p){cout << p->getName() << " loses!" << endl; incrementStats(dealer);};
 
@@ -109,9 +109,9 @@ void Blackjack::determineWinner(){
             if(!p->bust() && !dealer->bust()){ // where player and dealer have not bust
                 if(p->handTotal() > dealer->handTotal()){ playerWins(p); }  // player has more points than dealer
                 else if(p->handTotal() == dealer->handTotal()){             // a draw
-                    if(p->getHand().size() > dealer->getHand().size() || p->getHand().size() == dealer->getHand().size()){ playerWins(p); } // player wins if has more or the same amount of cards as dealer
+                    if(p->getHand().size() >= dealer->getHand().size()){ playerWins(p); } // player wins if has more or the same amount of cards as dealer
                     else { playerLoses(p); }
-                } else { playerLoses(p); }
+                } else { playerLoses(p); } // dealer has more points
             } else if(!p->bust() && dealer->bust()){ playerWins(p); } // player has not bust, but dealer has
             else if (p->bust()) { playerLoses(p); } // otherwise player has bust
         }

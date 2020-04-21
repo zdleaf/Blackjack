@@ -7,16 +7,16 @@ Player::Player(){
     // blank constructor
 }
 
-const string Player::getName(){ return name; }
+string Player::getName() const { return name; }
 void Player::setName(string name){ this->name = name; }
 
 void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card); }
 
-const std::vector<shared_ptr<BlackjackCard>> Player::getHand(){ return playerHand; }
+std::vector<shared_ptr<BlackjackCard>> Player::getHand() const { return playerHand; }
 
 void Player::clearHand(){ playerHand.clear(); }
 
-const int Player::handTotal(){
+int Player::handTotal() const {
     int total = 0;
     for(shared_ptr<BlackjackCard> card: playerHand){
         total += card->getPoints();
@@ -24,13 +24,13 @@ const int Player::handTotal(){
     return total;
 }
 
-const void Player::displayHand(){
+void Player::displayHand() const {
     for(shared_ptr<BlackjackCard> card: playerHand){ cout << card->toStr(); } // print each card in the players hand
     cout << " total:" << handTotal() << endl;  
 }
 
 
-const void Player::displayAscii(){ // display ascii representation of players cards
+void Player::displayAscii() const { // display ascii representation of players cards
     array<string, 6> asciiCards; // array to hold the 6 lines of ascii strings that makes up a card
     for(shared_ptr<BlackjackCard> card: playerHand){
         array<string, 6> tempCard = card->getAscii(); // get the ascii of each card
@@ -39,13 +39,13 @@ const void Player::displayAscii(){ // display ascii representation of players ca
     for(string s: asciiCards){ cout << s << endl; } // display
 }
 
-const void Player::displayFullHand(){ // display full hand, including name, ascii and total
+void Player::displayFullHand() const { // display full hand, including name, ascii and total
     cout << "\n" << name << ": " << endl;
     displayAscii(); 
     displayHand();
 }
 
-const void Player::displayHiddenHand(){
+void Player::displayHiddenHand() const {
     cout << "\n" << name << ": " << endl;
     array<string, 6> hiddenCard = {".------.", "|------|", "|------|", "|------|", "|------|", "'------'"};
     array<string, 6> asciiCards;
@@ -55,7 +55,7 @@ const void Player::displayHiddenHand(){
     for(string s: asciiCards){ cout << s << endl; } 
 }
 
-const bool Player::bust(){
+bool Player::bust() const {
     if(handTotal() > 21){ return true; }
     return false;
 }
@@ -75,7 +75,7 @@ bool Human::playLoop(Deck<BlackjackCard> *deck){
         if(input == "t" || input == "T"){
             addCard(deck->deal());
             displayFullHand();
-            if(bust()){ cout << "\n" << getName() << " BUST!" << endl; return false; }
+            if(bust()){ cout << "\n" << getName() << " BUST!" << endl; this_thread::sleep_for(chrono::milliseconds(500)); return false; }
             else if(playerHand.size() == 5){ cout << "Maximum 5 cards reached" << endl; return true; }
         }
         else if(input == "s" || input == "S"){
@@ -93,7 +93,7 @@ CPU::CPU(Blackjack *blackjack):Player(){ // constructor
 
 bool CPU::playLoop(Deck<BlackjackCard> *deck){
     int highestScore = blackjack->highestScore(); cout << "\nHighest player score to beat: " << highestScore << endl;
-    while(handTotal() < highestScore){
+    while(handTotal() <= highestScore && handTotal() != 21){ // CPU twists while it's hand is <= the highest players score but less than 21
         cout << "\nCPU thinking"; for(int i=0;i<10;i++){ this_thread::sleep_for(chrono::milliseconds(100)); cout << "."; cout.flush(); }
         cout << "\nCPU twists" << endl;
         cout << "Dealing another card: " << endl;

@@ -6,17 +6,17 @@ Card::Card(int suit, int value){
     // std::cout << "Created card " << returnValue(value) << returnSuit(suit) << endl;
 }
 
-string Card::toStr(){
+string Card::toStr() const {
     return lookupValue(value) + lookupSuit(suit);
 }
 
-int Card::getSuit(){ return suit; }
-int Card::getValue(){ return value; }
-string Card::getSuitStr(){ return lookupSuit(getSuit()); }
-string Card::getValueStr(){ return lookupValue(getValue()); }
+int Card::getSuit() const { return suit; }
+int Card::getValue() const { return value; }
+string Card::getSuitStr() const { return lookupSuit(getSuit()); }
+string Card::getValueStr() const { return lookupValue(getValue()); }
 
 
-string Card::lookupSuit(int cSuit){
+string Card::lookupSuit(int cSuit){ // static
     switch(cSuit){
         case 1: return "h";
         case 2: return "d";
@@ -26,7 +26,7 @@ string Card::lookupSuit(int cSuit){
     }
 }
 
-string Card::lookupValue(int cVal){
+string Card::lookupValue(int cVal){ // static
     switch(cVal){
         case 1: return "A";
         case 2: return "2";
@@ -45,7 +45,7 @@ string Card::lookupValue(int cVal){
     }
 }
 
-int Card::rlookupValue(string cVal){ // reverse lookup
+int Card::rlookupValue(string cVal){ // reverse lookup (static)
     if(cVal == "A"){ return 1; }
     else if(cVal == "2"){ return 2; }
     else if(cVal == "3"){ return 3; }
@@ -62,7 +62,7 @@ int Card::rlookupValue(string cVal){ // reverse lookup
     else return 0;
 }
 
-array<string, 6> Card::getAscii(){
+array<string, 6> Card::getAscii() const {
     // hjw's card templates from https://ascii.co.uk/art/cards
     array<string, 6> heart = {".------.", "|X_  _ |", "|( \\/ )|", "| \\  / |", "|  \\/ X|", "'------'"};
     array<string, 6> diamond = {".------.", "|X /\\  |", "| /  \\ |", "| \\  / |", "|  \\/ X|", "'------'"};
@@ -85,4 +85,4 @@ BlackjackCard::BlackjackCard(int suit,int value):Card(suit, value){
     else if(value >= 10){ this->points = 10; } // if a picture card (10, J, Q, K), points are worth 10
 }
 
-int BlackjackCard::getPoints(){ return points; }
+int BlackjackCard::getPoints() const { return points; }

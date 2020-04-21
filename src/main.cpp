@@ -2,7 +2,7 @@
 #include "../include/Blackjack/Blackjack.h"
 
 // compile command only works in root directory!
-// g++ src/*.cpp -I. -o main -std=c++17
+// g++ src/*.cpp -I. -o main -std=c++11
 
 int main(){
     
