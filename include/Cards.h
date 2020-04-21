@@ -21,17 +21,20 @@ class Card {
         Card(int suit,int value); 
         
         // get functions
-        string toStr() const; // string representation of the hand e.g. Ah, 5d
         int getSuit() const;
         int getValue() const;
         string getSuitStr() const;
         string getValueStr() const;
+        string toStr() const; // string representation of the hand e.g. Ah, 5d
         array<string, 6> getAscii() const; // get ascii card representation
 
         // lookup functions
         static string lookupSuit(int suit);
         static string lookupValue(int value);
         static int rlookupValue(string cVal);
+
+        // user input to card suit/value method
+        //static std::vector<int> inputToCard();
 };
 
 class BlackjackCard: public Card {
