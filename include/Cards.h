@@ -33,8 +33,10 @@ class Card {
         static string lookupValue(int value);
         static int rlookupValue(string cVal);
 
-        // user input to card suit/value method
-        //static std::vector<int> inputToCard();
+        // user input to return card suit/value
+        static std::vector<int> inputToCard(); // returns a vector {suit, value} after getting input from cin
+        static void invalidInput();
+        static int getValFromInput(string &input, int charsToProcess = 1);
 };
 
 class BlackjackCard: public Card {

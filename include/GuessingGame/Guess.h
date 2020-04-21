@@ -29,9 +29,6 @@ class Guess{
         void newGame();
         void gameLoop();
 
-        std::vector<int> validateInput();
-        void invalidInput();
-        int getValFromInput(string &input, int charsToProcess = 1) const;
         bool guessLoop();
         bool compareGuess(std::vector<int> guessVec);
         void playAgain();
