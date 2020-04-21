@@ -41,17 +41,20 @@ class Deck {
         
         // deal() - return shared_ptr to topCard and increment topCard iterator to the next card
         std::shared_ptr<T> deal() { 
-            std::shared_ptr<T> card = *topCard;
-            if(topCard == deck.end()){ return nullptr; } // if we are at the end of the deck, return nullptr
-            else{ ++topCard; } // otherwise increment our iterator to point to the next card
+            std::shared_ptr<T> card;
+            if(!isEmpty()){ // check if the deck is empty i.e. no more cards in deck to deal
+                card = *topCard; 
+                ++topCard; // increment the topCard iterator to the next in deck
+            } 
+            else { return shared_ptr<T>(nullptr); } // if we are at the end of the deck, return a nullptr
             return card;
         }
 
-        // determine whether deck is empty
-        bool isEmpty() const { if (topCard == deck.end()){ return true; } return false; }
+        // determine whether deck is empty i.e. topCard iterator points off end
+        bool isEmpty() const { if (deck.end()-topCard == 0){ return true; } return false; }
         
-        // return size of the deck
-        size_t size() const { return deck.size(); }
+        // return the amount of cards still left in the deck
+        int size() const { return (deck.end()-topCard)+1; }
 };
 
 
