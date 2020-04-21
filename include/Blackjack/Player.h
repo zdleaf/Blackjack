@@ -21,19 +21,24 @@ class Player{
 
     public:
         Player();
+
+        // getter/setters
         string getName() const;
         void setName(string name);
+        std::vector<shared_ptr<BlackjackCard>> getHand() const; // return the vector that comprises a players hand
 
+        // methods dealing with the players hand
         void addCard(shared_ptr<BlackjackCard> card);
-        std::vector<shared_ptr<BlackjackCard>> getHand() const; // return the vector that comprises of a players hand
         void clearHand();
         int handTotal() const;
+        bool bust() const;
+
+        // display hand methods
         void displayHand() const;
         void displayAscii() const;
         void displayFullHand() const;
         void displayHiddenHand() const;
-        bool bust() const;
-
+        
         virtual bool playLoop(Deck<BlackjackCard> *deck) = 0; // make Player abstract with pure virtual - cannot be directly instantiated and all sub classes must implement this function
 
 };

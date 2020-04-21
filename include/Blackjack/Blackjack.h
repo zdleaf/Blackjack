@@ -12,13 +12,14 @@ class Player; // forward declaration
 
 class Blackjack{
     private:
-        Deck<BlackjackCard> *deck; // deck is initialised in constructor
+        // game objects
+        Deck<BlackjackCard> *deck; // deck is initialised/constructed in constructor
         std::vector<Player*> playerVec; // vector of the players in the current game
-        Player* dealer; // pointer to the CPU player/dealer (also in the playerVec)
+        Player* dealer; // pointer to the CPU player/dealer (also last item in the playerVec)
 
         // statistics
-        unordered_map<Player*, int> scoreMap; // hash map to save score
-        vector<string> roundWinners; // vector to store the names of the winning players for each round
+        std::unordered_map<Player*, int> scoreMap; // hash map to save score
+        std::vector<string> roundWinners; // vector to store the names of the winning players for each round
         int currentRound = 0; // store the current round
 
     public:

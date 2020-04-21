@@ -93,7 +93,7 @@ CPU::CPU(Blackjack *blackjack):Player(){ // constructor
 
 bool CPU::playLoop(Deck<BlackjackCard> *deck){
     int highestScore = blackjack->highestScore(); cout << "\nHighest player score to beat: " << highestScore << endl;
-    while(handTotal() <= highestScore && handTotal() != 21){ // CPU twists while it's hand is <= the highest players score but less than 21
+    while(handTotal() < highestScore && handTotal() != 21){ // CPU twists while it's hand is < the highest players score but less than 21
         cout << "\nCPU thinking"; for(int i=0;i<10;i++){ this_thread::sleep_for(chrono::milliseconds(100)); cout << "."; cout.flush(); }
         cout << "\nCPU twists" << endl;
         cout << "Dealing another card: " << endl;

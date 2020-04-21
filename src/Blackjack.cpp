@@ -24,7 +24,7 @@ void Blackjack::addPlayersUI(){
     int humanPlayers;
     while(true){
         string input; 
-        cout << "Enter the number of human players (1-10): ";
+        cout << "Enter the number of human players (1-9): ";
         cin >> input;
         cin.ignore();
         stringstream ss(input); // use stringstream to validate our input
@@ -67,8 +67,8 @@ void Blackjack::gameLoop(){
     cout << "---------------------------------------------------------------" << endl;
     cout << " - All players play against the dealer/CPU" << endl;
     cout << " - Over 21 = BUST" << endl;
-    cout << " - Dealer twists until they have a hand higher than the player," << endl;
-    cout << "   reaches 21, or busts" << endl;
+    cout << " - Dealer twists until they have a hand equal to or higher than" << endl;
+    cout << "   the player, reaches 21, or busts" << endl;
     cout << " - Maximum 5 cards in a hand" << endl;
     cout << " - In case of a draw, player with the most cards in their hand" << endl;
     cout << "   wins (or human player wins if both have 5 cards)" << endl;
