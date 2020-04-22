@@ -19,13 +19,13 @@ class Guess{
         shared_ptr<Card> card;
 
     public:
+        // constructor/deconstructor
         Guess();
         ~Guess();
-        void generate();
 
         // encapsulation/getters
-        shared_ptr<Card> getCard();
-        int getNumberOfGuesses();
+        shared_ptr<Card> getCard() const;
+        int getNumberOfGuesses() const;
 
         // gameplay
         void newGame();

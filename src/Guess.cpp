@@ -15,8 +15,8 @@ void Guess::newGame(){
     gameLoop(); // start the game loop
 }
 
-shared_ptr<Card> Guess::getCard(){ return card; }
-int Guess::getNumberOfGuesses(){ return numberOfGuesses; }
+shared_ptr<Card> Guess::getCard() const{ return card; }
+int Guess::getNumberOfGuesses() const{ return numberOfGuesses; }
 
 void Guess::gameLoop(){
     bool gameWon = false;
@@ -38,8 +38,6 @@ void Guess::gameLoop(){
 
 bool Guess::guessLoop(){
     vector<int> guessVec;
-    int value; int suit;
-    string input = "";
     bool validInput = false;
     while(!validInput){
         cout << "Enter a guess (attempt " << getNumberOfGuesses() << "): " << endl;
