@@ -152,6 +152,5 @@ void Blackjack::playAgain(){
     cin >> input;
     cin.ignore();
     if (input == "y") { newGame(); }
-    else { displayStats(); exit(0); }
-    
+    else { displayStats(); }
 }
