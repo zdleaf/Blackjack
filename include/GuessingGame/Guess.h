@@ -19,7 +19,7 @@ class Guess{
         shared_ptr<Card> card;
 
     public:
-        // constructor/deconstructor
+        // constructor/destructor
         Guess();
         ~Guess();
 

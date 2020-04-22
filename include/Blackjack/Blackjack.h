@@ -23,7 +23,7 @@ class Blackjack{
         int currentRound = 0; // store the current round
 
     public:
-        // constructor/deconstructor
+        // constructor/destructor
         Blackjack();
         ~Blackjack();
 

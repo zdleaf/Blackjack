@@ -29,7 +29,7 @@ class Deck {
             topCard = deck.begin(); // start with iterator to the first card in the deck
         }
         
-        // deconstructor
+        // destructor
         ~Deck(){
             // using shared_ptr so manual memory management/deletion of cards not required
         }

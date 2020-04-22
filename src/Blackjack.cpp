@@ -9,7 +9,7 @@ Blackjack::Blackjack(){
     initialiseScores();
 }
 
-// de-constructor
+// destructor
 Blackjack::~Blackjack(){
     delete deck; // delete our deck of cards
     for( Player* p: playerVec){ delete p; }; // delete all our players
