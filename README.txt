@@ -1,4 +1,4 @@
-Code tested and compiled on Debian WSL using g++ compiler version 4:8.3.0-1 as below. The code was entirely written using Virtual Studio Code with C++ plugin.
+Code tested and compiled on Debian WSL using g++ compiler version 4:8.3.0-1 as below. The code was entirely written using Virtual Studio Code with C++ plugin/extension.
 
 To compile code run the following command or equivilent in the root directory:
 g++ src/*.cpp -I. -o main -std=c++11

@@ -7,13 +7,13 @@ Player::Player(){
     // blank constructor
 }
 
+// getter/setters
 string Player::getName() const { return name; }
 void Player::setName(string name){ this->name = name; }
-
-void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card); }
-
 std::vector<shared_ptr<BlackjackCard>> Player::getHand() const { return playerHand; }
 
+// playerHand methods
+void Player::addCard(shared_ptr<BlackjackCard> card){ playerHand.push_back(card); }
 void Player::clearHand(){ playerHand.clear(); }
 
 int Player::handTotal() const {
@@ -24,11 +24,16 @@ int Player::handTotal() const {
     return total;
 }
 
+bool Player::bust() const {
+    if(handTotal() > 21){ return true; }
+    return false;
+}
+
+// display methods
 void Player::displayHand() const {
     for(shared_ptr<BlackjackCard> card: playerHand){ cout << card->toStr(); } // print each card in the players hand
     cout << " total:" << handTotal() << endl;  
 }
-
 
 void Player::displayAscii() const { // display ascii representation of players cards
     array<string, 6> asciiCards; // array to hold the 6 lines of ascii strings that makes up a card
@@ -53,11 +58,6 @@ void Player::displayHiddenHand() const {
         for(int i=0; i<6;i++){ asciiCards[i].append(hiddenCard[i]); } // append each line to our ascii representation
     }
     for(string s: asciiCards){ cout << s << endl; } 
-}
-
-bool Player::bust() const {
-    if(handTotal() > 21){ return true; }
-    return false;
 }
 
 Human::Human():Player(){ // constructor

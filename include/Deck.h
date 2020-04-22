@@ -51,7 +51,7 @@ class Deck {
             return card;
         }
 
-        // determine whether deck is empty i.e. topCard iterator points off end
+        // determine whether deck is empty i.e. topCard iterator points off end or there are still cards left to deal
         bool isEmpty() const { if (deck.end()-topCard == 0){ return true; } return false; }
         
         // return the amount of cards still left in the deck
